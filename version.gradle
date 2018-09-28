@@ -1,0 +1,20 @@
+def builderVersion(versionFilePath) {
+    def versionPropsFile = file(versionFilePath)
+    if (versionPropsFile.canRead()){
+
+        Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        def code = versionProps['VERSION_CODE'].toInteger() + 1
+        versionProps['VERSION_CODE'] = code.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+
+        return code
+    } else {
+        throw new GradleException("Could not read $versionFilePath")
+    }
+}
+
+ext.versionCodeBuilder = { def versionFilePath ->
+    return builderVersion(versionFilePath)
+}

@@ -1,15 +1,17 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply from: '../version.gradle'
+
 
 android {
     compileSdkVersion 28
 
+    def codeVersionPatch = versionCodeBuilder("version.properties")
     defaultConfig {
         minSdkVersion 24
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
-
+        versionName "$codeVersion_MAJOR.$codeVersion_MINOR.$codeVersionPatch"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -30,7 +32,21 @@ dependencies {
     testImplementation "junit:junit:$jUnitVersion"
     androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
+
+    implementation project(':core')
 }
 repositories {
     mavenCentral()
 }
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+tasks.withType(Javadoc) {
+    enabled = false
+}
+
+apply from: 'publish.gradle'
