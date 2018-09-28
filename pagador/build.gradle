@@ -3,12 +3,12 @@ apply plugin: 'kotlin-android'
 apply from: '../version.gradle'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion sdkVersion
 
     def codeVersionPatch = versionCodeBuilder("version.properties")
     defaultConfig {
-        minSdkVersion 24
-        targetSdkVersion 28
+        minSdkVersion minSdkVersion
+        targetSdkVersion sdkVersion
         versionCode 1
         versionName "$codeVersion_MAJOR.$codeVersion_MINOR.$codeVersionPatch"
 
@@ -28,7 +28,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation "com.android.support:appcompat-v7:$androidSupportVersion"
     testImplementation "junit:junit:$jUnitVersion"
     androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
@@ -36,3 +36,14 @@ dependencies {
 repositories {
     mavenCentral()
 }
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+tasks.withType(Javadoc) {
+    enabled = false
+}
+
+apply from: 'publish.gradle'
