@@ -32,6 +32,13 @@ dependencies {
     testImplementation "junit:junit:$jUnitVersion"
     androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
+
+    compileOnly "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    compileOnly "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    compileOnly group: 'com.google.code.gson', name: 'gson', version: "$gsonVersion"
+
+    implementation project(":core")
+
 }
 repositories {
     mavenCentral()
@@ -45,5 +52,3 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 tasks.withType(Javadoc) {
     enabled = false
 }
-
-apply from: 'publish.gradle'

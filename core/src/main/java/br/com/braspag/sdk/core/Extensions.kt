@@ -1,5 +1,7 @@
 package br.com.braspag.sdk.core
 
+import br.com.braspag.sdk.core.http.HttpStatusCode
+
 fun Int.toStatusCode(): HttpStatusCode = when (this) {
     200 -> HttpStatusCode.Ok
     201 -> HttpStatusCode.Created

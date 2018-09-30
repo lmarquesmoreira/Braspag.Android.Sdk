@@ -12,9 +12,9 @@ task sourceJar(type: Jar) {
 publishing {
     publications {
         Production(MavenPublication) {
-            artifact("build/outputs/aar/core-release.aar")
+            artifact("build/outputs/aar/android-release.aar")
             groupId
-            artifactId 'core'
+            artifactId 'android'
             version this.version
 
             pom.withXml {
@@ -53,7 +53,7 @@ bintray {
 
     pkg {
         repo = 'Braspag.Android.Sdk'
-        name = 'core'
+        name = 'android'
         licenses = ['MIT']
         vcsUrl = 'https://github.com/lmarquesmoreira/Braspag.Android.Sdk.git'
         websiteUrl = 'http://www.braspag.com.br/#solucoes'

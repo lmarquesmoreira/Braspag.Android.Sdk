@@ -28,12 +28,20 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     implementation "com.android.support:appcompat-v7:$androidSupportVersion"
     testImplementation "junit:junit:$jUnitVersion"
     androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
 
-    implementation project(':core')
+    compileOnly "com.jakewharton.timber:timber:$timberVersion"
+    compileOnly 'commons-codec:commons-codec:1.11'
+    compileOnly "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+    compileOnly "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    compileOnly "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    compileOnly group: 'com.google.code.gson', name: 'gson', version: "$gsonVersion"
+
+    implementation project(":core")
 }
 repositories {
     mavenCentral()
@@ -48,5 +56,8 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 tasks.withType(Javadoc) {
     enabled = false
 }
-
-apply from: 'publish.gradle'
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}

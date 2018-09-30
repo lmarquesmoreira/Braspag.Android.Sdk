@@ -1,0 +1,24 @@
+ext.applyBuildConfigFields = { def variant, Map<String, Object> configs ->
+    configs.each { key, val ->
+        if (val instanceof String) {
+            variant.buildConfigField(val.class.name, key, "\"$val\"")
+        } else {
+            variant.buildConfigField(val.class.name, key, val)
+        }
+    }
+}
+
+ext {
+    urls = [
+            SANDBOX_URL_PAGADOR            : 'https://apisandbox.braspag.com.br/',
+            SANDBOX_URL_PAGADOR_QUERY      : 'https://apiquerysandbox.braspag.com.br/',
+            SANDBOX_URL_CARTAO_PROTEGIDO   : 'https://cartaoprotegidosandbox.braspag.com.br/',
+            SANDBOX_URL_VELOCITY           : 'https://velocitysandbox.braspag.com.br/',
+            SANDBOX_URL_BRASPAG_AUTH       : 'https://authsandbox.braspag.com.br/',
+            PRODUCTION_URL_PAGADOR         : 'https://api.braspag.com.br/',
+            PRODUCTION_URL_PAGADOR_QUERY   : 'https://api.braspag.com.br/',
+            PRODUCTION_URL_CARTAO_PROTEGIDO: 'https://cartaoprotegido.braspag.com.br/',
+            PRODUCTION_URL_VELOCITY        : 'https://velocity.braspag.com.br/',
+            PRODUCTION_URL_BRASPAG_AUTH    : 'https://auth.braspag.com.br/'
+    ]
+}

@@ -26,19 +26,20 @@ allprojects {
         jcenter()
     }
 
-
     ext {
         codeVersion_MAJOR = "1"
         codeVersion_MINOR = "0"
-
         minSdkVersion = 19
         sdkVersion = 27
         androidSupportVersion = "27.1.1"
+        coroutinesVersion = "0.23.4"
+        retrofitVersion = "2.3.0"
         okhttpVersion = "3.10.0"
         gsonVersion = "2.8.2"
         jUnitVersion = "4.12"
         espressoVersion = "3.0.2"
         testRunnerVersion = "1.0.2"
+        timberVersion = "4.7.1"
     }
 }
 

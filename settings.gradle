@@ -1,1 +1,1 @@
-include ':app', ':core', ':auth', ':pagador', ':velocity'
+include ':app', ':core', ':auth', ':pagador', ':velocity', ':android'

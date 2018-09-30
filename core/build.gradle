@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply from: '../version.gradle'
+apply from: '../variables.gradle'
 
 android {
     compileSdkVersion sdkVersion
@@ -21,6 +22,9 @@ android {
         }
     }
 
+    libraryVariants.all { variants ->
+        applyBuildConfigFields(variants, urls)
+    }
 }
 
 dependencies {
@@ -31,10 +35,16 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
 
-    implementation group: 'com.google.code.gson', name: 'gson', version: "$gsonVersion"
-    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation "com.jakewharton.timber:timber:$timberVersion"
 
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation group: 'com.google.code.gson', name: 'gson', version: "$gsonVersion"
+
+    implementation 'commons-codec:commons-codec:1.11'
 }
+
 repositories {
     mavenCentral()
 }
@@ -48,5 +58,3 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 tasks.withType(Javadoc) {
     enabled = false
 }
-
-apply from: 'publish.gradle'
