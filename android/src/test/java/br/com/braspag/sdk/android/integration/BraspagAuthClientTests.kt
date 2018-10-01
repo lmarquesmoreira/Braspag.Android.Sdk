@@ -1,12 +1,12 @@
-package br.com.braspag.sdk.auth.integration
+package br.com.braspag.sdk.android.integration
 
-import br.com.braspag.sdk.auth.BraspagAuthClientImpl
+import br.com.braspag.sdk.android.BraspagAuthClientImpl
 import br.com.braspag.sdk.auth.contracts.AccessTokenRequest
 import br.com.braspag.sdk.auth.contracts.OAuthGrantType
 import br.com.braspag.sdk.core.Environment
 import br.com.braspag.sdk.core.http.HttpStatusCode
 import kotlinx.coroutines.experimental.runBlocking
-import org.junit.Assert.*
+import org.junit.Assert
 import org.junit.Test
 
 class BraspagAuthClientTests {
@@ -19,7 +19,7 @@ class BraspagAuthClientTests {
                 grantType = OAuthGrantType.ClientCredentials
             )
         )
-        assertNull(model.result)
+        Assert.assertNull(model.result)
     }
 
     @Test
@@ -35,9 +35,9 @@ class BraspagAuthClientTests {
             )
         )
 
-        assertNotNull(model.result)
-        assertEquals(model.statusCode, HttpStatusCode.Ok)
-        assertNotNull(model.result?.token)
+        Assert.assertNotNull(model.result)
+        Assert.assertEquals(model.statusCode, HttpStatusCode.Ok)
+        Assert.assertNotNull(model.result?.token)
     }
 
     //@Test
@@ -55,9 +55,9 @@ class BraspagAuthClientTests {
             )
         )
 
-        assertNotNull(model.result)
-        assertEquals(model.statusCode, HttpStatusCode.Ok)
-        assertNotNull(model.result?.token)
+        Assert.assertNotNull(model.result)
+        Assert.assertEquals(model.statusCode, HttpStatusCode.Ok)
+        Assert.assertNotNull(model.result?.token)
     }
 
     @Test
@@ -76,7 +76,7 @@ class BraspagAuthClientTests {
         )
 
         println(model.messageError)
-        assertNull(model.result)
+        Assert.assertNull(model.result)
     }
 
     @Test
@@ -92,9 +92,9 @@ class BraspagAuthClientTests {
             )
         )
 
-        assertNotNull(model.result)
-        assertEquals(model.statusCode, HttpStatusCode.Ok)
-        assertNotNull(model.result?.token)
+        Assert.assertNotNull(model.result)
+        Assert.assertEquals(model.statusCode, HttpStatusCode.Ok)
+        Assert.assertNotNull(model.result?.token)
 
 
         val refreshTokenModel = client.createAccessToken(
@@ -106,7 +106,7 @@ class BraspagAuthClientTests {
             )
         )
 
-        assertNull(refreshTokenModel.result)
+        Assert.assertNull(refreshTokenModel.result)
     }
 
 }

@@ -1,23 +1,23 @@
-package br.com.braspag.sdk.auth
+package br.com.braspag.sdk.android
 
+import br.com.braspag.sdk.auth.BraspagAuthApi
 import br.com.braspag.sdk.auth.contracts.AccessTokenRequest
 import br.com.braspag.sdk.auth.contracts.AccessTokenResponse
 import br.com.braspag.sdk.auth.contracts.OAuthGrantType
 import br.com.braspag.sdk.auth.models.AuthorizationCodeModel
-import br.com.braspag.sdk.core.*
 import br.com.braspag.sdk.core.BuildConfig
-import br.com.braspag.sdk.core.Environment.PRODUCTION
-import br.com.braspag.sdk.core.Environment.SANDBOX
+import br.com.braspag.sdk.core.Environment
 import br.com.braspag.sdk.core.network.BasicAuthInterceptor
 import br.com.braspag.sdk.core.network.ClientResultModel
 import br.com.braspag.sdk.core.network.createRequest
 import br.com.braspag.sdk.core.network.processRequest
+import br.com.braspag.sdk.core.toStatusCode
 
 class BraspagAuthClientImpl(environment: Environment) : BraspagAuthClient {
 
     private val apiUrl: String = when (environment) {
-        SANDBOX -> BuildConfig.SANDBOX_URL_BRASPAG_AUTH
-        PRODUCTION -> BuildConfig.PRODUCTION_URL_BRASPAG_AUTH
+        Environment.SANDBOX -> BuildConfig.SANDBOX_URL_BRASPAG_AUTH
+        Environment.PRODUCTION -> BuildConfig.PRODUCTION_URL_BRASPAG_AUTH
     }
 
     override suspend fun createAccessToken(
