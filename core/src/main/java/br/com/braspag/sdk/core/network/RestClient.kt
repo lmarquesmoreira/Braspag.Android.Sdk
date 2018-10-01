@@ -20,13 +20,30 @@ fun <T> processRequest(block: () -> Response<T>): ClientResultModel<T> {
         true -> ClientResultModel(
                 response.body(),
                 response.code().toStatusCode(),
-                requestId = response.headers().get("requestid")
+                requestId = response.headers().get("RequestId")
         )
         false -> ClientResultModel(
                 null,
                 response.code().toStatusCode(),
                 response.errorBody()?.string(),
-                requestId = response.headers().get("requestid")
+                requestId = response.headers().get("RequestId")
+        )
+    }
+}
+
+fun <T> processRequestForVoidResponse(block: () -> Response<T>): ClientResultModel<Boolean> {
+    val response = block.invoke()
+    return when (response.isSuccessful) {
+        true -> ClientResultModel(
+                true,
+                response.code().toStatusCode(),
+                requestId = response.headers().get("RequestId")
+        )
+        false -> ClientResultModel(
+                false,
+                response.code().toStatusCode(),
+                response.errorBody()?.string(),
+                requestId = response.headers().get("RequestId")
         )
     }
 }
