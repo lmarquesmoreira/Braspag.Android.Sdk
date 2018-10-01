@@ -12,7 +12,7 @@ import br.com.braspag.sdk.velocity.contracts.AnalysisRequest
 import br.com.braspag.sdk.velocity.contracts.AnalysisResponse
 
 class VelocityClientImpl(private val credentials: ApiCredentials, environment: Environment) :
-    VelocityClient {
+        VelocityClient {
 
     private val apiUrl: String = when (environment) {
         Environment.SANDBOX -> BuildConfig.SANDBOX_URL_VELOCITY
@@ -22,11 +22,11 @@ class VelocityClientImpl(private val credentials: ApiCredentials, environment: E
     override suspend fun performAnalysis(request: AnalysisRequest): ClientResultModel<AnalysisResponse> {
         return processRequest {
             createRequest(
-                apiUrl,
-                VelocityApi::class.java,
-                listOf(ApiCredentialsInterceptor(credentials))
+                    apiUrl,
+                    VelocityApi::class.java,
+                    listOf(ApiCredentialsInterceptor(credentials))
             ).performAnalysis(request)
-                .execute()
+                    .execute()
         }
     }
 }

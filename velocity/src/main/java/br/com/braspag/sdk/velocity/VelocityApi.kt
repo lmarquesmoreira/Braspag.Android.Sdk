@@ -10,6 +10,6 @@ interface VelocityApi {
 
     @POST("analysis/v2/")
     fun performAnalysis(
-        @Body model: AnalysisRequest
+            @Body model: AnalysisRequest
     ): Call<AnalysisResponse>
 }

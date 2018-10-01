@@ -21,15 +21,15 @@ class BraspagAuthClientImpl(environment: Environment) : BraspagAuthClient {
     }
 
     override suspend fun createAccessToken(
-        request: AccessTokenRequest
+            request: AccessTokenRequest
     ): ClientResultModel<AccessTokenResponse> {
 
         if (!request.isValid()) {
 
             return ClientResultModel(
-                null,
-                (-1).toStatusCode(),
-                "Invalid Parameters"
+                    null,
+                    (-1).toStatusCode(),
+                    "Invalid Parameters"
             )
         }
         return when (request.grantType) {
@@ -41,71 +41,71 @@ class BraspagAuthClientImpl(environment: Environment) : BraspagAuthClient {
     }
 
     private fun getClientCredentials(
-        request: AccessTokenRequest
+            request: AccessTokenRequest
     ): ClientResultModel<AccessTokenResponse> =
-        processRequest {
-            createRequest(
-                apiUrl, BraspagAuthApi::class.java, additionalInterceptors = listOf(
-                    BasicAuthInterceptor(
-                        request.clientId!!,
-                        request.clientSecret!!
-                    )
+            processRequest {
+                createRequest(
+                        apiUrl, BraspagAuthApi::class.java, additionalInterceptors = listOf(
+                        BasicAuthInterceptor(
+                                request.clientId!!,
+                                request.clientSecret!!
+                        )
                 )
-            ).getAccessTokenByCredentials(
-                scope = request.scope
-            ).execute()
-        }
+                ).getAccessTokenByCredentials(
+                        scope = request.scope
+                ).execute()
+            }
 
     private fun getPassword(
-        request: AccessTokenRequest
+            request: AccessTokenRequest
     ): ClientResultModel<AccessTokenResponse> =
-        processRequest {
-            createRequest(
-                apiUrl, BraspagAuthApi::class.java, additionalInterceptors = listOf(
-                    BasicAuthInterceptor(
-                        request.clientId!!,
-                        request.clientSecret!!
-                    )
+            processRequest {
+                createRequest(
+                        apiUrl, BraspagAuthApi::class.java, additionalInterceptors = listOf(
+                        BasicAuthInterceptor(
+                                request.clientId!!,
+                                request.clientSecret!!
+                        )
                 )
-            ).getAccessTokenByPassword(
-                username = request.userName!!,
-                password = request.password!!
-            ).execute()
-        }
+                ).getAccessTokenByPassword(
+                        username = request.userName!!,
+                        password = request.password!!
+                ).execute()
+            }
 
     private fun getRefreshToken(
-        request: AccessTokenRequest
+            request: AccessTokenRequest
     ): ClientResultModel<AccessTokenResponse> =
-        processRequest {
-            createRequest(
-                apiUrl, BraspagAuthApi::class.java, additionalInterceptors = listOf(
-                    BasicAuthInterceptor(
-                        request.clientId!!,
-                        request.clientSecret!!
-                    )
+            processRequest {
+                createRequest(
+                        apiUrl, BraspagAuthApi::class.java, additionalInterceptors = listOf(
+                        BasicAuthInterceptor(
+                                request.clientId!!,
+                                request.clientSecret!!
+                        )
                 )
-            ).refreshAccessToken(
-                refreshToken = request.refreshToken!!
-            ).execute()
-        }
+                ).refreshAccessToken(
+                        refreshToken = request.refreshToken!!
+                ).execute()
+            }
 
     private fun getCode(
-        request: AccessTokenRequest
+            request: AccessTokenRequest
     ): ClientResultModel<AccessTokenResponse> =
-        processRequest {
-            createRequest(
-                apiUrl, BraspagAuthApi::class.java, additionalInterceptors = listOf(
-                    BasicAuthInterceptor(
-                        request.clientId!!,
-                        request.clientSecret!!
-                    )
+            processRequest {
+                createRequest(
+                        apiUrl, BraspagAuthApi::class.java, additionalInterceptors = listOf(
+                        BasicAuthInterceptor(
+                                request.clientId!!,
+                                request.clientSecret!!
+                        )
                 )
-            ).getAuthorizationCodeToken(
-                AuthorizationCodeModel(
-                    code = request.code!!,
-                    callbackUri = request.callbackUri!!
-                )
-            ).execute()
-        }
+                ).getAuthorizationCodeToken(
+                        AuthorizationCodeModel(
+                                code = request.code!!,
+                                callbackUri = request.callbackUri!!
+                        )
+                ).execute()
+            }
 
 }

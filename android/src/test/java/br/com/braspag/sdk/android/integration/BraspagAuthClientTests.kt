@@ -15,9 +15,9 @@ class BraspagAuthClientTests {
     fun createAccessTokenWithoutParameters() = runBlocking {
         val client = BraspagAuthClientImpl(Environment.SANDBOX)
         val model = client.createAccessToken(
-            AccessTokenRequest(
-                grantType = OAuthGrantType.ClientCredentials
-            )
+                AccessTokenRequest(
+                        grantType = OAuthGrantType.ClientCredentials
+                )
         )
         Assert.assertNull(model.result)
     }
@@ -28,11 +28,11 @@ class BraspagAuthClientTests {
         val client = BraspagAuthClientImpl(Environment.SANDBOX)
 
         val model = client.createAccessToken(
-            AccessTokenRequest(
-                clientId = "b7554867-c69a-4fd2-b059-40c08f6f924a",
-                clientSecret = "9tV4mICf6YmKiRkfPce8+jHc4M2hLGgBdMCxnlj3LDY=",
-                grantType = OAuthGrantType.ClientCredentials
-            )
+                AccessTokenRequest(
+                        clientId = "b7554867-c69a-4fd2-b059-40c08f6f924a",
+                        clientSecret = "9tV4mICf6YmKiRkfPce8+jHc4M2hLGgBdMCxnlj3LDY=",
+                        grantType = OAuthGrantType.ClientCredentials
+                )
         )
 
         Assert.assertNotNull(model.result)
@@ -46,13 +46,13 @@ class BraspagAuthClientTests {
         val client = BraspagAuthClientImpl(Environment.SANDBOX)
 
         val model = client.createAccessToken(
-            AccessTokenRequest(
-                clientId = "b7554867-c69a-4fd2-b059-40c08f6f924a",
-                clientSecret = "9tV4mICf6YmKiRkfPce8+jHc4M2hLGgBdMCxnlj3LDY=",
-                userName = "<username>",
-                password = "<password>",
-                grantType = OAuthGrantType.Password
-            )
+                AccessTokenRequest(
+                        clientId = "b7554867-c69a-4fd2-b059-40c08f6f924a",
+                        clientSecret = "9tV4mICf6YmKiRkfPce8+jHc4M2hLGgBdMCxnlj3LDY=",
+                        userName = "<username>",
+                        password = "<password>",
+                        grantType = OAuthGrantType.Password
+                )
         )
 
         Assert.assertNotNull(model.result)
@@ -66,13 +66,13 @@ class BraspagAuthClientTests {
         val client = BraspagAuthClientImpl(Environment.SANDBOX)
 
         val model = client.createAccessToken(
-            AccessTokenRequest(
-                clientId = "b7554867-c69a-4fd2-b059-40c08f6f924a",
-                clientSecret = "9tV4mICf6YmKiRkfPce8+jHc4M2hLGgBdMCxnlj3LDY=",
-                code = "00001",
-                callbackUri = "https://minhaurl.com",
-                grantType = OAuthGrantType.AuthorizationCode
-            )
+                AccessTokenRequest(
+                        clientId = "b7554867-c69a-4fd2-b059-40c08f6f924a",
+                        clientSecret = "9tV4mICf6YmKiRkfPce8+jHc4M2hLGgBdMCxnlj3LDY=",
+                        code = "00001",
+                        callbackUri = "https://minhaurl.com",
+                        grantType = OAuthGrantType.AuthorizationCode
+                )
         )
 
         println(model.messageError)
@@ -85,11 +85,11 @@ class BraspagAuthClientTests {
         val client = BraspagAuthClientImpl(Environment.SANDBOX)
 
         val model = client.createAccessToken(
-            AccessTokenRequest(
-                clientId = "b7554867-c69a-4fd2-b059-40c08f6f924a",
-                clientSecret = "9tV4mICf6YmKiRkfPce8+jHc4M2hLGgBdMCxnlj3LDY=",
-                grantType = OAuthGrantType.ClientCredentials
-            )
+                AccessTokenRequest(
+                        clientId = "b7554867-c69a-4fd2-b059-40c08f6f924a",
+                        clientSecret = "9tV4mICf6YmKiRkfPce8+jHc4M2hLGgBdMCxnlj3LDY=",
+                        grantType = OAuthGrantType.ClientCredentials
+                )
         )
 
         Assert.assertNotNull(model.result)
@@ -98,12 +98,12 @@ class BraspagAuthClientTests {
 
 
         val refreshTokenModel = client.createAccessToken(
-            AccessTokenRequest(
-                clientId = "b7554867-c69a-4fd2-b059-40c08f6f924a",
-                clientSecret = "9tV4mICf6YmKiRkfPce8+jHc4M2hLGgBdMCxnlj3LDY=",
-                refreshToken = model.result?.refreshToken,
-                grantType = OAuthGrantType.RefreshToken
-            )
+                AccessTokenRequest(
+                        clientId = "b7554867-c69a-4fd2-b059-40c08f6f924a",
+                        clientSecret = "9tV4mICf6YmKiRkfPce8+jHc4M2hLGgBdMCxnlj3LDY=",
+                        refreshToken = model.result?.refreshToken,
+                        grantType = OAuthGrantType.RefreshToken
+                )
         )
 
         Assert.assertNull(refreshTokenModel.result)

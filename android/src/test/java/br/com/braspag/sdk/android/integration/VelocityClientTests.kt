@@ -19,67 +19,67 @@ import java.util.*
 class VelocityClientTests {
 
     private fun createAnalysisRequest() = AnalysisRequest(
-        transaction = TransactionModel(
-            orderId = "01",
-            id = UUID.randomUUID().toString(),
-            amount = 1000,
-            date = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
-                .format(Calendar.getInstance().time).toString()
-        ),
-        card = CardModel(
-            holder = "BJORN IRONSIDE",
-            brand = "visa",
-            number = "1000100010001000",
-            expiration = "10/2025"
-        ),
-        customer = CustomerModel(
-            name = "BJORN IRONSIDE",
-            identity = "76250252096",
-            ipAddress = "127.0.0.1",
-            email = "bjorn.ironside@vikings.com.br",
-            birthDate = "1982-06-30",
-            phones = listOf(
-                PhoneModel(
-                    type = PhoneType.CellPhone,
-                    number = "999999999",
-                    ddi = "55",
-                    ddd = "11",
-                    extension = ""
-                )
+            transaction = TransactionModel(
+                    orderId = "01",
+                    id = UUID.randomUUID().toString(),
+                    amount = 1000,
+                    date = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
+                            .format(Calendar.getInstance().time).toString()
             ),
-            billing = AddressModel(
-                street = "Alameda Xingu",
-                number = "512",
-                neighborhood = "Alphaville",
-                city = "Barueri",
-                state = "SP",
-                country = "BR",
-                zipCode = "06455-030"
+            card = CardModel(
+                    holder = "BJORN IRONSIDE",
+                    brand = "visa",
+                    number = "1000100010001000",
+                    expiration = "10/2025"
             ),
-            shipping = AddressModel(
-                street = "Alameda Xingu",
-                number = "512",
-                neighborhood = "Alphaville",
-                city = "Barueri",
-                state = "SP",
-                country = "BR",
-                zipCode = "06455-030"
+            customer = CustomerModel(
+                    name = "BJORN IRONSIDE",
+                    identity = "76250252096",
+                    ipAddress = "127.0.0.1",
+                    email = "bjorn.ironside@vikings.com.br",
+                    birthDate = "1982-06-30",
+                    phones = listOf(
+                            PhoneModel(
+                                    type = PhoneType.CellPhone,
+                                    number = "999999999",
+                                    ddi = "55",
+                                    ddd = "11",
+                                    extension = ""
+                            )
+                    ),
+                    billing = AddressModel(
+                            street = "Alameda Xingu",
+                            number = "512",
+                            neighborhood = "Alphaville",
+                            city = "Barueri",
+                            state = "SP",
+                            country = "BR",
+                            zipCode = "06455-030"
+                    ),
+                    shipping = AddressModel(
+                            street = "Alameda Xingu",
+                            number = "512",
+                            neighborhood = "Alphaville",
+                            city = "Barueri",
+                            state = "SP",
+                            country = "BR",
+                            zipCode = "06455-030"
+                    )
             )
-        )
     )
 
-    @Test
+    //@Test
     fun performAnalysis() = runBlocking {
 
         val client = BraspagAuthClientImpl(Environment.SANDBOX)
 
         val model = client.createAccessToken(
-            AccessTokenRequest(
-                clientId = "5d85902e-592a-44a9-80bb-bdda74d51bce",
-                clientSecret = "mddRzd6FqXujNLygC/KxOfhOiVhlUr2kjKPsOoYHwhQ=",
-                scope = "VelocityApp",
-                grantType = OAuthGrantType.ClientCredentials
-            )
+                AccessTokenRequest(
+                        clientId = "5d85902e-592a-44a9-80bb-bdda74d51bce",
+                        clientSecret = "mddRzd6FqXujNLygC/KxOfhOiVhlUr2kjKPsOoYHwhQ=",
+                        scope = "VelocityApp",
+                        grantType = OAuthGrantType.ClientCredentials
+                )
         )
 
         Assert.assertNotNull(model.result)
@@ -89,10 +89,10 @@ class VelocityClientTests {
         val analysisRequest = createAnalysisRequest()
 
         val velocityClient = VelocityClientImpl(
-            ApiCredentials(
-                merchantId = "94E5EA52-79B0-7DBA-1867-BE7B081EDD97",
-                accessToken = model.result?.token!!
-            ), Environment.SANDBOX
+                ApiCredentials(
+                        merchantId = "94E5EA52-79B0-7DBA-1867-BE7B081EDD97",
+                        accessToken = model.result?.token!!
+                ), Environment.SANDBOX
         )
 
         val analysisResponse = velocityClient.performAnalysis(analysisRequest)
