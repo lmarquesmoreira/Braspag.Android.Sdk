@@ -1,8 +1,7 @@
 package br.com.braspag.sdk.android
 
 import br.com.braspag.pagador.PagadorApi
-import br.com.braspag.pagador.contracts.PaymentRequestModel
-import br.com.braspag.pagador.contracts.RecurrentPaymentResponse
+import br.com.braspag.pagador.contracts.*
 import br.com.braspag.pagador.models.CustomerModel
 import br.com.braspag.pagador.models.RecurrencyInterval
 import br.com.braspag.sdk.core.ApiCredentials
@@ -131,4 +130,60 @@ class PagadorClientImpl(private val credentials: ApiCredentials, environment: En
                     .execute()
         }
     }
+
+    override suspend fun createSale(model: SaleRequest): ClientResultModel<SaleResponse> {
+        return processRequest {
+            createRequest(
+                    apiUrl,
+                    PagadorApi::class.java,
+                    listOf(ApiCredentialsInterceptor(credentials))
+            ).createSale(model)
+                    .execute()
+        }
+    }
+
+    override suspend fun getSaleByOrderId(id: String): ClientResultModel<SaleOrderResponse> {
+        return processRequest {
+            createRequest(
+                    apiQueryUrl,
+                    PagadorApi::class.java,
+                    listOf(ApiCredentialsInterceptor(credentials))
+            ).getSaleByOrderId(id)
+                    .execute()
+        }
+    }
+
+    override suspend fun getSaleByPaymentId(paymentId: String): ClientResultModel<SaleResponse> {
+        return processRequest {
+            createRequest(
+                    apiQueryUrl,
+                    PagadorApi::class.java,
+                    listOf(ApiCredentialsInterceptor(credentials))
+            ).getSaleByPaymentId(paymentId)
+                    .execute()
+        }
+    }
+
+    override suspend fun cancelSale(paymentId: String, amount: Long): ClientResultModel<VoidResponse> {
+        return processRequest {
+            createRequest(
+                    apiUrl,
+                    PagadorApi::class.java,
+                    listOf(ApiCredentialsInterceptor(credentials))
+            ).cancelSale(paymentId, amount)
+                    .execute()
+        }
+    }
+
+    override suspend fun captureSale(paymentId: String, amount: Long, serviceTaxAmount: Long?): ClientResultModel<CaptureResponse> {
+        return processRequest {
+            createRequest(
+                    apiUrl,
+                    PagadorApi::class.java,
+                    listOf(ApiCredentialsInterceptor(credentials))
+            ).captureSale(paymentId, amount, serviceTaxAmount)
+                    .execute()
+        }
+    }
+
 }
